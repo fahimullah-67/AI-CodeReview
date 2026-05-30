@@ -1,7 +1,8 @@
-langchain_google_genai
-langchain_core
-google-generativeai 
-
+fastapi
+uvicorn
 python-dotenv
 PyGithub
-
+langchain-core
+langchain-google-genai
+langchain-anthropic
+langchain-openai
