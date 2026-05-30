@@ -13,11 +13,14 @@ export default function PRDetail() {
   const [config, setConfig] = useState(getConfig());
   const [alreadySaved, setAlreadySaved] = useState(false);
 
-  // Check if this PR was already reviewed
+  const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
   useEffect(() => {
     const existing = getAllReviews().find(
-      (r) => r.pr?.number === parseInt(prNumber) &&
-             r.owner === owner && r.repo === repo
+      (r) =>
+        r.pr?.number === parseInt(prNumber) &&
+        r.owner === owner &&
+        r.repo === repo,
     );
     if (existing) {
       setReview(existing);
@@ -34,13 +37,13 @@ export default function PRDetail() {
     setError(null);
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/review/${owner}/${repo}/${prNumber}`,
+        `${BASE_URL}/api/review/${owner}/${repo}/${prNumber}`,
         {
           provider: config.provider,
           model: config.model,
           api_key: config.api_key,
           post_to_github: config.post_to_github,
-        }
+        },
       );
 
       const data = res.data;
