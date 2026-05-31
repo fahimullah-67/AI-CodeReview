@@ -19,9 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# -----------------------------------------------
-# DYNAMIC REVIEWER — uses model from request
-# -----------------------------------------------
+
+
 def build_chain(provider: str, model: str, api_key: str):
     from langchain_core.prompts import PromptTemplate
     from langchain_core.output_parsers import StrOutputParser
@@ -126,17 +125,17 @@ def review_file_dynamic(filename, status, diff, provider, model, api_key):
         return None
 
 
-# -----------------------------------------------
+
 # HEALTH CHECK
-# -----------------------------------------------
+
 @app.get("/")
 def health_check():
     return {"status": "running", "message": "AI Code Reviewer active!"}
 
 
-# -----------------------------------------------
+
 # AVAILABLE MODELS LIST
-# -----------------------------------------------
+
 @app.get("/api/models")
 def get_models():
     return {
@@ -172,9 +171,8 @@ def get_models():
     }
 
 
-# -----------------------------------------------
 # GET OPEN PRs
-# -----------------------------------------------
+
 @app.get("/api/prs/{owner}/{repo}")
 def get_prs(owner: str, repo: str):
     from github_client import get_open_prs
@@ -185,9 +183,8 @@ def get_prs(owner: str, repo: str):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-# -----------------------------------------------
 # REVIEW A PR
-# -----------------------------------------------
+
 @app.post("/api/review/{owner}/{repo}/{pr_number}")
 async def review_pr(
     owner: str,
@@ -250,9 +247,9 @@ async def review_pr(
     }
 
 
-# -----------------------------------------------
+
 # WEBHOOK
-# -----------------------------------------------
+
 @app.post("/webhook")
 async def github_webhook(
     request: Request,
