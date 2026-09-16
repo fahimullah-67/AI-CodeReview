@@ -96,7 +96,7 @@ ai-code-reviewer/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/ai-code-reviewer.git
+git clone https://github.com/fahimullah-67/ai-code-reviewer.git
 cd ai-code-reviewer
 ```
 
